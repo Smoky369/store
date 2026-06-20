@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Shopping & Delivery Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/logo.jpeg" alt="Store Logo" class="logo-img">
+        <span>Online Shopping & Delivery Store</span>
+      </div>
+      <div class="nav-links">
+        <a href="#products" class="nav-link">Products</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#founders" class="nav-link">Founders</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button class="theme-toggle" id="themeToggle" data-theme-toggle title="Toggle Dark/Light Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#products" class="mobile-link">Products</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#founders" class="mobile-link">Founders</a>
+    <a href="#reviews" class="mobile-link">Reviews</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <button class="theme-toggle mobile-theme-toggle" data-theme-toggle title="Toggle Dark/Light Mode">
+      <i class="fas fa-moon"></i>
+      <span>Toggle theme</span>
+    </button>
+  </div>
+
+  <!-- Announcement Banner -->
+  <div class="announcement-banner">
+    <i class="fas fa-bullhorn"></i>
+    <span id="announcementText">Grand Opening Special! Get 30% off on all products this week!</span>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-slide hero-slide-smoke" aria-hidden="true"></div>
+    <div class="hero-content">
+      <img src="images/logo.jpeg" alt="Store Logo" class="hero-logo">
+      <h1 class="store-name">Online Shopping &<br>Delivery Store</h1>
+      <p class="store-tagline">Your trusted local marketplace for quality products</p>
+      
+      <!-- Status Section -->
+      <div class="status-section">
+        <div class="status-card">
+          <div class="status-indicator" id="statusIndicator">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="status-text" id="statusText">Available</span>
+          </div>
+        </div>
+        <div class="countdown-section return-panel">
+          <div class="return-progress" aria-label="Return countdown progress">
+            <svg class="progress-ring" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#6366f1"></stop>
+                  <stop offset="55%" stop-color="#ec4899"></stop>
+                  <stop offset="100%" stop-color="#22c55e"></stop>
+                </linearGradient>
+              </defs>
+              <circle class="progress-ring-track" cx="60" cy="60" r="52"></circle>
+              <circle class="progress-ring-fill" id="progressRing" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="progress-center">
+              <span id="progressPercent">100%</span>
+              <small>left</small>
+            </div>
+          </div>
+          <div class="return-details">
+            <p class="countdown-label" id="countdownLabel">Returns in</p>
+            <div class="countdown-timer" id="countdownTimer">23:45:30</div>
+            <p class="qatar-return-time">
+              Qatar return time: <strong id="qatarReturnTime">--:--</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <a href="https://api1.vyaparapp.in/store/onlineshoppingdeliverycenter" class="btn btn-primary">
+          <i class="fas fa-shopping-bag"></i> Shop Online
+        </a>
+        <a href="https://wa.me/qr/DL5UC2YEUMKXB1" target="_blank" class="btn btn-whatsapp">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="tel:66047901" class="btn btn-call">
+          <i class="fas fa-phone"></i> Call
+        </a>
+        <a href="https://maps.app.goo.gl/oBgK8aUU7XgAy4cDA" target="_blank" class="btn btn-directions">
+          <i class="fas fa-location-dot"></i> Directions
+        </a>
+      </div>
+    </div>
+    <div class="hero-background">
+      <div class="gradient-blob blob-1"></div>
+      <div class="gradient-blob blob-2"></div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section id="products" class="products-section">
+    <div class="section-container">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Discover our best-selling items</p>
+      
+      <div class="products-grid">
+        <!-- Product Card 1 -->
+        <div class="product-card" data-featured-product="0">
+          <div class="product-image">
+            <img src="images/logo2.jpg" alt="Premium Collection" data-product-image>
+            <span class="badge" data-product-badge>Popular</span>
+          </div>
+          <div class="product-info">
+            <h3 data-product-title>Premium Collection</h3>
+            <p class="product-desc" data-product-subtitle>High-quality items for everyday use</p>
+          </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="product-card" data-featured-product="1">
+          <div class="product-image">
+            <img src="images/hro.jpg" alt="Exclusive Deals" data-product-image>
+            <span class="badge" data-product-badge>Exclusive</span>
+          </div>
+          <div class="product-info">
+            <h3 data-product-title>Exclusive Deals</h3>
+            <p class="product-desc" data-product-subtitle>Limited edition products for you</p>
+          </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="product-card" data-featured-product="2">
+          <div class="product-image">
+            <img src="images/hro2.jpg" alt="Best Sellers" data-product-image>
+            <span class="badge" data-product-badge>Best Seller</span>
+          </div>
+          <div class="product-info">
+            <h3 data-product-title>Best Sellers</h3>
+            <p class="product-desc" data-product-subtitle>Customer favorites and top picks</p>
+          </div>
+        </div>
+
+        <!-- Product Card 4 -->
+        <div class="product-card" data-featured-product="3">
+          <div class="product-image">
+            <img src="images/smoke.jpeg" alt="Special Offers" data-product-image>
+            <span class="badge" data-product-badge>Sale -30%</span>
+          </div>
+          <div class="product-info">
+            <h3 data-product-title>Special Offers</h3>
+            <p class="product-desc" data-product-subtitle>Unbeatable prices this season</p>
+          </div>
+        </div>
+
+        <!-- Product Card 5 -->
+        <div class="product-card" data-featured-product="4">
+          <div class="product-image">
+            <img src="images/linkin.png" alt="New Arrivals" data-product-image>
+            <span class="badge" data-product-badge>New</span>
+          </div>
+          <div class="product-info">
+            <h3 data-product-title>New Arrivals</h3>
+            <p class="product-desc" data-product-subtitle>Fresh stock just added</p>
+          </div>
+        </div>
+
+        <!-- Product Card 6 -->
+        <div class="product-card" data-featured-product="5">
+          <div class="product-image">
+            <img src="images/logo.jpeg" alt="Premium Plus" data-product-image>
+            <span class="badge" data-product-badge>Premium</span>
+          </div>
+          <div class="product-info">
+            <h3 data-product-title>Premium Plus</h3>
+            <p class="product-desc" data-product-subtitle>Luxury items for discerning customers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Store Section -->
+  <section id="about" class="about-section">
+    <div class="section-container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2 class="section-title">About Our Store</h2>
+          <p>Welcome to Online Shopping & Delivery Store, your ultimate destination for quality products delivered right to your doorstep. Founded by two passionate entrepreneurs, Milan and Kushal, we've built a trusted marketplace that prioritizes customer satisfaction and excellence.</p>
+          
+          <div class="about-highlights">
+            <div class="highlight">
+              <i class="fas fa-truck"></i>
+              <h4>Fast Delivery</h4>
+              <p>Same-day delivery available in selected areas</p>
+            </div>
+            <div class="highlight">
+              <i class="fas fa-shield"></i>
+              <h4>100% Authentic</h4>
+              <p>All products are verified and genuine</p>
+            </div>
+            <div class="highlight">
+              <i class="fas fa-undo"></i>
+              <h4>Easy Returns</h4>
+              <p>Hassle-free 30-day return policy</p>
+            </div>
+            <div class="highlight">
+              <i class="fas fa-headset"></i>
+              <h4>24/7 Support</h4>
+              <p>Always here to help you</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+          <img src="images/logo2.jpg" alt="Store">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founders Section -->
+  <section id="founders" class="founders-section">
+    <div class="section-container">
+      <h2 class="section-title">Meet Our Founders</h2>
+      <p class="section-subtitle">The visionaries behind your favorite store</p>
+      
+      <div class="founders-grid">
+        <!-- Founder 1 -->
+        <div class="founder-card">
+          <div class="founder-image">
+            <img src="images/milan.jpeg" alt="Milan">
+          </div>
+          <h3>Milan</h3>
+          <p class="founder-role">Co-Founder</p>
+          <p class="founder-bio">With 5+ years of retail experience, Milan brings innovation and customer-first thinking to every aspect of our business. Passionate about delivering excellence.</p>
+          <div class="founder-socials">
+            <a href="https://wa.me/qr/DL5UC2YEUMKXB1" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <!-- Founder 2 -->
+        <div class="founder-card">
+          <div class="founder-image">
+            <img src="images/kushal.jpeg" alt="Kushal">
+          </div>
+          <h3>Kushal</h3>
+          <p class="founder-role">Co-Founder</p>
+          <p class="founder-bio">Tech enthusiast with a keen eye for operations, Kushal ensures our platform runs smoothly. His vision is to revolutionize local shopping experience.</p>
+          <div class="founder-socials">
+            <a href="https://wa.me/qr/DL5UC2YEUMKXB1" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews" class="reviews-section">
+    <div class="section-container">
+      <h2 class="section-title">Customer Reviews</h2>
+      <p class="section-subtitle">What our customers say about us</p>
+      
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">"Excellent service and amazing products! Delivery was faster than expected. Highly recommended!"</p>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Arjun Patel">
+            </div>
+            <div>
+              <p class="author-name">Arjun Patel</p>
+              <p class="review-date">2 weeks ago</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">"सबसे अच्छा online स्टोर जो मैंने पाया है! Nice products, उचित मूल्य और अविश्वसनीय ग्राहक सहायता। Keep it up!"</p>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Ajay Singh">
+            </div>
+            <div>
+              <p class="author-name">Ajay Singh</p>
+              <p class="review-date">1 week ago</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half"></i>
+          </div>
+          <p class="review-text">"Love shopping here! The website is user-friendly and the founders are very responsive to feedback. A+ experience."</p>
+          <div class="review-author">
+            <div class="author-avatar">
+              <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="राजेश कुमार">
+            </div>
+            <div>
+              <p class="author-name">राजेश कुमार</p>
+              <p class="review-date">3 days ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Location Section -->
+  <section id="contact" class="contact-section">
+    <div class="section-container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">We'd love to hear from you</p>
+      
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Location</h4>
+              <p>FCV7+WWV <br>Al Sakhama, Qatar</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <h4>Phone</h4>
+              <p>
+                <a href="tel:66047901">66047901</a><br>
+                <a href="tel:30637421">30637421</a>
+              </p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:onlinedeliveryqa.24@gmail.com">onlinedeliveryqa.24@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <h4>Business Hours</h4>
+              <p>Open 24/7 for online shopping and delivery support</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-section">
+          <form class="contact-form" id="contactForm">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About Us</h4>
+        <p>Your trusted local marketplace for quality products and exceptional service.</p>
+        <div class="social-links">
+          <a href="https://facebook.com" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="https://instagram.com" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="https://youtube.com" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#founders">Founders</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Newsletter</h4>
+        <p>Subscribe to get updates on new products and exclusive offers</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email" id="newsletterEmail">
+          <button type="submit">Subscribe</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Online Shopping & Delivery Store. All rights reserved.</p>
+      <p>Made by Manish Pathak</p>
+    </div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="store-cloud.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

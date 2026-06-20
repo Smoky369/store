@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Shopping & Delivery Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #ec4899;
+      --gold: #f59e0b;
+      --ink: #ffffff;
+      --paper: #0f172a;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--ink);
+      overflow-x: hidden;
+      background:
+        linear-gradient(rgba(15, 23, 42, 0.84), rgba(15, 23, 42, 0.9)),
+        url('images/hro.jpg') center / cover no-repeat fixed;
+      animation: backgroundDrift 18s ease-in-out infinite alternate;
+    }
+
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 2rem;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(236, 72, 153, 0.16), transparent 34rem),
+        linear-gradient(135deg, #0f172a, #1e293b 52%, #0f172a);
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .loading-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      padding: 5px;
+      background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(135deg, var(--primary), var(--accent), var(--gold)) border-box;
+      border: 2px solid transparent;
+      box-shadow: 0 18px 40px rgba(99, 102, 241, 0.22);
+      animation: logoPop 0.8s ease both, logoPulse 2.2s ease-in-out 0.8s infinite;
+    }
+
+    .loading-text {
+      font-weight: 700;
+      font-size: clamp(1.2rem, 5vw, 1.7rem);
+      color: var(--white);
+      animation: riseIn 0.7s ease 0.1s both;
+    }
+
+    .loading-subtext {
+      color: #94a3b8;
+      font-weight: 500;
+      animation: riseIn 0.7s ease 0.25s both;
+    }
+
+    .progress-bar {
+      width: min(260px, 72vw);
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.14);
+    }
+
+    .progress-bar span {
+      display: block;
+      width: 42%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--gold));
+      animation: loadingMove 1.15s ease-in-out infinite;
+    }
+
+    @keyframes loadingMove {
+      0% {
+        transform: translateX(-110%);
+      }
+      100% {
+        transform: translateX(260%);
+      }
+    }
+
+    .welcome-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(245, 158, 11, 0.18), transparent 18rem),
+        radial-gradient(circle at 82% 76%, rgba(99, 102, 241, 0.18), transparent 20rem);
+      pointer-events: none;
+      animation: glowDrift 9s ease-in-out infinite alternate;
+    }
+
+    .welcome-page::after {
+      content: '';
+      position: absolute;
+      width: 16rem;
+      height: 16rem;
+      left: max(1rem, 8vw);
+      bottom: max(1rem, 7vh);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.16), transparent 68%);
+      pointer-events: none;
+      animation: softFloat 7s ease-in-out infinite;
+    }
+
+    .store-entry {
+      position: relative;
+      z-index: 1;
+      width: min(520px, 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: clamp(2.5rem, 8vw, 4rem);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      background: rgba(30, 41, 59, 0.75);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.16);
+      backdrop-filter: blur(14px);
+      animation: cardEntrance 0.9s ease 1.45s both, cardFloat 5.5s ease-in-out 2.4s infinite;
+    }
+
+    .store-entry::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.52) 42%, transparent 66%);
+      transform: translateX(-130%);
+      animation: cardShine 4.8s ease-in-out 2.2s infinite;
+      pointer-events: none;
+    }
+
+    .store-logo {
+      width: clamp(132px, 34vw, 190px);
+      height: clamp(132px, 34vw, 190px);
+      border-radius: 50%;
+      object-fit: cover;
+      padding: 7px;
+      border: 2px solid transparent;
+      background:
+        linear-gradient(#ffffff, #ffffff) padding-box,
+        linear-gradient(135deg, var(--primary), var(--accent), var(--gold)) border-box;
+      box-shadow:
+        0 18px 50px rgba(99, 102, 241, 0.28),
+        0 0 0 10px rgba(255, 255, 255, 0.55);
+      margin-bottom: 1.5rem;
+      animation: logoPop 0.85s ease 1.65s both, logoFloat 4s ease-in-out 2.5s infinite;
+    }
+
+    .store-name {
+      font-family: 'Space Grotesk', 'Poppins', sans-serif;
+      font-size: clamp(2rem, 9vw, 3.5rem);
+      line-height: 1.05;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.85rem;
+      opacity: 0;
+      animation: titleReveal 0.8s ease 1.85s both;
+    }
+
+    .store-tagline {
+      max-width: 30rem;
+      color: #94a3b8;
+      font-size: clamp(0.98rem, 3vw, 1.1rem);
+      font-weight: 500;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: riseIn 0.75s ease 2.05s both;
+    }
+
+    .enter-store {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      width: min(100%, 260px);
+      padding: 0.95rem 1.4rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: var(--white);
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 16px 34px rgba(99, 102, 241, 0.32);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: riseIn 0.7s ease 2.25s both, buttonBreathe 2.8s ease-in-out 3s infinite;
+    }
+
+    .enter-store::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.34) 45%, transparent 70%);
+      transform: translateX(-120%);
+      animation: buttonShine 3.2s ease-in-out 3.2s infinite;
+    }
+
+    .enter-store:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 44px rgba(99, 102, 241, 0.42);
+    }
+
+    @keyframes backgroundDrift {
+      from {
+        background-position: center center;
+      }
+      to {
+        background-position: center 42%;
+      }
+    }
+
+    @keyframes glowDrift {
+      from {
+        transform: translate3d(-1rem, -0.5rem, 0) scale(1);
+      }
+      to {
+        transform: translate3d(1rem, 0.75rem, 0) scale(1.04);
+      }
+    }
+
+    @keyframes softFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes cardFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes cardShine {
+      0%, 58% {
+        transform: translateX(-130%);
+      }
+      78%, 100% {
+        transform: translateX(130%);
+      }
+    }
+
+    @keyframes logoPop {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.82);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+    }
+
+    @keyframes logoPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 18px 40px rgba(99, 102, 241, 0.22);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 22px 48px rgba(236, 72, 153, 0.26);
+      }
+    }
+
+    @keyframes titleReveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes buttonBreathe {
+      0%, 100% {
+        box-shadow: 0 16px 34px rgba(99, 102, 241, 0.32);
+      }
+      50% {
+        box-shadow: 0 20px 42px rgba(236, 72, 153, 0.36);
+      }
+    }
+
+    @keyframes buttonShine {
+      0%, 56% {
+        transform: translateX(-120%);
+      }
+      76%, 100% {
+        transform: translateX(120%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      .welcome-page {
+        padding: 1rem;
+      }
+
+      .store-entry {
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen">
+    <img src="images/logo.jpeg" alt="Store Logo" class="loading-logo">
+    <p class="loading-text">Preparing your store experience<span id="dots">.</span></p>
+    <p class="loading-subtext">Fresh deals and local delivery are almost ready.</p>
+    <div class="progress-bar" aria-hidden="true"><span></span></div>
+  </div>
+
+  <main class="welcome-page">
+    <section class="store-entry" aria-labelledby="storeName">
+      <img src="images/logo.jpeg" alt="Online Shopping & Delivery Store Logo" class="store-logo">
+      <h1 class="store-name" id="storeName">Online Shopping &<br>Delivery Store</h1>
+      <p class="store-tagline">Your trusted local marketplace for quality products and quick delivery.</p>
+      <a href="about.html" class="enter-store">Enter the Store</a>
+    </section>
+  </main>
+
+  <audio id="welcomeAudio" src="audio.mp3" preload="auto" autoplay playsinline></audio>
+
+  <script>
+    const loadingScreen = document.getElementById('loadingScreen');
+    const dots = document.getElementById('dots');
+    const welcomeAudio = document.getElementById('welcomeAudio');
+    let dotCount = 1;
+
+    function startWelcomeAudio() {
+      if (!welcomeAudio) return;
+      welcomeAudio.volume = 0.75;
+      welcomeAudio.play().catch(() => {
+        document.addEventListener('pointerdown', startWelcomeAudio, { once: true });
+        document.addEventListener('keydown', startWelcomeAudio, { once: true });
+      });
+    }
+
+    const dotsTimer = setInterval(() => {
+      dotCount = dotCount === 3 ? 1 : dotCount + 1;
+      dots.textContent = '.'.repeat(dotCount);
+    }, 450);
+
+    startWelcomeAudio();
+
+    window.addEventListener('load', () => {
+      startWelcomeAudio();
+      setTimeout(() => {
+        clearInterval(dotsTimer);
+        loadingScreen.classList.add('hide');
+      }, 1600);
+    });
+  </script>
+</body>
+</html>

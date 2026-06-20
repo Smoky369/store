@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store Admin Panel - 369</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .admin-container {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 3rem;
+      max-width: 1100px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .admin-header i {
+      font-size: 2rem;
+      color: #6366f1;
+    }
+
+    .admin-header h1 {
+      color: white;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-group label {
+      display: block;
+      color: #e0e7ff;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .status-section {
+      background: rgba(99, 102, 241, 0.1);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .status-select-wrap {
+      position: relative;
+      margin-top: 1rem;
+    }
+
+    .status-select-wrap::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .status-select {
+      width: 100%;
+      padding: 1rem 3rem 1rem 1rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      background: rgba(99, 102, 241, 0.08);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      appearance: none;
+      transition: all 0.3s ease;
+    }
+
+    .status-select:focus {
+      outline: none;
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .status-select option {
+      background: #1e293b;
+      color: white;
+    }
+
+    .time-input-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .time-input {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .time-input label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .time-input input {
+      padding: 0.75rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      background: rgba(99, 102, 241, 0.05);
+      color: white;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .time-input input:focus {
+      outline: none;
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .text-input {
+      width: 100%;
+      min-width: 0;
+      padding: 1rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      background: rgba(99, 102, 241, 0.05);
+      color: white;
+      font: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .products-admin {
+      background: rgba(99, 102, 241, 0.08);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .products-admin-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .products-admin-header p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.95rem;
+    }
+
+    .product-editor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .product-editor {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.42);
+      border: 1px solid rgba(99, 102, 241, 0.18);
+    }
+
+    .product-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .product-fields {
+      display: grid;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .product-fields h3 {
+      color: #e0e7ff;
+      font-size: 0.95rem;
+    }
+
+    .field-row {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .field-row label {
+      color: #94a3b8;
+      font-size: 0.78rem;
+      margin-bottom: 0;
+    }
+
+    .field-row input {
+      width: 100%;
+      min-width: 0;
+      padding: 0.7rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      background: rgba(99, 102, 241, 0.05);
+      color: white;
+      font: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .field-row input:focus {
+      outline: none;
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .field-row input[type="file"] {
+      padding: 0.55rem;
+      cursor: pointer;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    button[type="submit"],
+    .reset-btn {
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+    }
+
+    .reset-btn {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366f1;
+      border: 2px solid #6366f1;
+    }
+
+    .reset-btn:hover {
+      background: #6366f1;
+      color: white;
+    }
+
+    .current-values {
+      background: rgba(99, 102, 241, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+      border: 1px solid rgba(99, 102, 241, 0.1);
+    }
+
+    .current-values h3 {
+      color: #e0e7ff;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .value-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+    }
+
+    .value-item:last-child {
+      border-bottom: none;
+    }
+
+    .value-item strong {
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .success-message {
+      display: none;
+      background: rgba(16, 185, 129, 0.1);
+      border: 2px solid #10b981;
+      color: #10b981;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      animation: slideDown 0.5s ease-out;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .warning-text {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .admin-container {
+        padding: 2rem;
+      }
+
+      .admin-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .button-group {
+        grid-template-columns: 1fr;
+      }
+
+      .product-editor-grid,
+      .product-editor {
+        grid-template-columns: 1fr;
+      }
+
+      .product-preview {
+        width: 100%;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <i class="fas fa-cog"></i>
+      <h1>Store Admin Panel</h1>
+    </div>
+
+    <div class="success-message" id="successMessage">
+      <i class="fas fa-check-circle"></i> Settings updated successfully!
+    </div>
+
+    <form id="adminForm">
+      <!-- Status Section -->
+      <div class="form-group">
+        <label>Store Status</label>
+        <div class="status-section">
+          <p style="color: rgba(255, 255, 255, 0.6); margin-bottom: 1rem;">Select current store status:</p>
+          <div class="status-select-wrap">
+            <select class="status-select" id="statusInput">
+              <option value="available">Available</option>
+              <option value="unavailable">Unavailable</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Countdown Timer Section -->
+      <div class="form-group">
+        <label>Set Countdown Timer</label>
+        <p class="warning-text">Set the time in HH:MM:SS format when store returns or is available</p>
+        <div class="time-input-group">
+          <div class="time-input">
+            <label>Hours</label>
+            <input type="number" id="hours" min="0" max="23" value="23">
+          </div>
+          <div class="time-input">
+            <label>Minutes</label>
+            <input type="number" id="minutes" min="0" max="59" value="45">
+          </div>
+          <div class="time-input">
+            <label>Seconds</label>
+            <input type="number" id="seconds" min="0" max="59" value="30">
+          </div>
+        </div>
+      </div>
+
+      <!-- Announcement Banner Section -->
+      <div class="form-group">
+        <label for="announcementInput">Grand Opening Banner Text</label>
+        <input type="text" class="text-input" id="announcementInput" maxlength="140" value="Grand Opening Special! Get 30% off on all products this week!">
+        <p class="warning-text">This changes the announcement line shown at the top of the storefront.</p>
+      </div>
+
+      <!-- Featured Products Section -->
+      <div class="form-group">
+        <label>Featured Products</label>
+        <div class="products-admin">
+          <div class="products-admin-header">
+            <p>Change image, title, subtitle, and badge text for all six featured product boxes.</p>
+            <button type="button" class="reset-btn" id="resetProductsBtn">
+              <i class="fas fa-box-open"></i> Product Defaults
+            </button>
+          </div>
+          <div class="product-editor-grid" id="productEditorGrid"></div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button type="submit">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+        <button type="button" class="reset-btn" id="resetBtn">
+          <i class="fas fa-redo"></i> Reset
+        </button>
+      </div>
+    </form>
+
+    <!-- Current Values Display -->
+    <div class="current-values">
+      <h3><i class="fas fa-info-circle"></i> Current Settings</h3>
+      <div class="value-item">
+        <span>Status:</span>
+        <strong id="currentStatus">Available</strong>
+      </div>
+      <div class="value-item">
+        <span>Countdown:</span>
+        <strong id="currentTimer">23:45:30</strong>
+      </div>
+      <div class="value-item">
+        <span>Last Updated:</span>
+        <strong id="lastUpdated">Never</strong>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="store-cloud.js"></script>
+  <script>
+    const defaultAnnouncement = 'Grand Opening Special! Get 30% off on all products this week!';
+    let cloudAdminData = null;
+
+    function getLocalJson(key, fallback) {
+      try {
+        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    const defaultFeaturedProducts = [
+      {
+        title: 'Premium Collection',
+        subtitle: 'High-quality items for everyday use',
+        badge: 'Popular',
+        image: 'images/logo2.jpg'
+      },
+      {
+        title: 'Exclusive Deals',
+        subtitle: 'Limited edition products for you',
+        badge: 'Exclusive',
+        image: 'images/hro.jpg'
+      },
+      {
+        title: 'Best Sellers',
+        subtitle: 'Customer favorites and top picks',
+        badge: 'Best Seller',
+        image: 'images/hro2.jpg'
+      },
+      {
+        title: 'Special Offers',
+        subtitle: 'Unbeatable prices this season',
+        badge: 'Sale -30%',
+        image: 'images/smoke.jpeg'
+      },
+      {
+        title: 'New Arrivals',
+        subtitle: 'Fresh stock just added',
+        badge: 'New',
+        image: 'images/linkin.png'
+      },
+      {
+        title: 'Premium Plus',
+        subtitle: 'Luxury items for discerning customers',
+        badge: 'Premium',
+        image: 'images/logo.jpeg'
+      }
+    ];
+
+    function getSavedProducts() {
+      const savedProducts = cloudAdminData?.featuredProducts || getLocalJson('featuredProducts', []);
+      return defaultFeaturedProducts.map((product, index) => ({
+        ...product,
+        ...(savedProducts[index] || {})
+      }));
+    }
+
+    function readImageFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const image = new Image();
+          image.onload = () => {
+            const maxSize = 640;
+            const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(image.width * scale));
+            canvas.height = Math.max(1, Math.round(image.height * scale));
+
+            const context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.76));
+          };
+          image.onerror = reject;
+          image.src = reader.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function renderProductEditors() {
+      const productEditorGrid = document.getElementById('productEditorGrid');
+      const products = getSavedProducts();
+
+      productEditorGrid.innerHTML = products.map((product, index) => {
+        const title = escapeHtml(product.title);
+        const subtitle = escapeHtml(product.subtitle);
+        const badge = escapeHtml(product.badge);
+        const image = escapeHtml(product.image);
+
+        return `
+        <div class="product-editor" data-product-editor="${index}">
+          <img src="${image}" alt="${title}" class="product-preview" data-product-preview>
+          <div class="product-fields">
+            <h3>Product Box ${index + 1}</h3>
+            <div class="field-row">
+              <label for="productImage${index}">Upload Picture</label>
+              <input type="file" id="productImage${index}" accept="image/*" data-product-image-input>
+            </div>
+            <div class="field-row">
+              <label for="productTitle${index}">Title</label>
+              <input type="text" id="productTitle${index}" value="${title}" data-product-title-input>
+            </div>
+            <div class="field-row">
+              <label for="productSubtitle${index}">Subtitle</label>
+              <input type="text" id="productSubtitle${index}" value="${subtitle}" data-product-subtitle-input>
+            </div>
+            <div class="field-row">
+              <label for="productBadge${index}">Badge</label>
+              <input type="text" id="productBadge${index}" value="${badge}" placeholder="Popular, Exclusive, New..." data-product-badge-input>
+            </div>
+            <input type="hidden" value="${image}" data-product-current-image>
+          </div>
+        </div>
+      `;
+      }).join('');
+
+      productEditorGrid.querySelectorAll('[data-product-image-input]').forEach((input) => {
+        input.addEventListener('change', async () => {
+          const editor = input.closest('[data-product-editor]');
+          const preview = editor.querySelector('[data-product-preview]');
+          const currentImage = editor.querySelector('[data-product-current-image]');
+          const file = input.files[0];
+
+          if (!file) return;
+
+          try {
+            const imageData = await readImageFile(file);
+            preview.src = imageData;
+            currentImage.value = imageData;
+          } catch (error) {
+            alert('Unable to load this image. Please try another file.');
+            input.value = '';
+          }
+        });
+      });
+    }
+
+    async function collectProductValues() {
+      const editors = document.querySelectorAll('[data-product-editor]');
+      return Array.from(editors).map((editor, index) => {
+        const title = editor.querySelector('[data-product-title-input]').value.trim() || defaultFeaturedProducts[index].title;
+        const subtitle = editor.querySelector('[data-product-subtitle-input]').value.trim() || defaultFeaturedProducts[index].subtitle;
+        const badge = editor.querySelector('[data-product-badge-input]').value.trim() || defaultFeaturedProducts[index].badge;
+        const image = editor.querySelector('[data-product-current-image]').value || defaultFeaturedProducts[index].image;
+
+        return { title, subtitle, badge, image };
+      });
+    }
+
+    // Status dropdown functionality
+    const statusInput = document.getElementById('statusInput');
+    const currentStatus = document.getElementById('currentStatus');
+
+    function updateTimerPreview() {
+      const timerDisplay = `${String(hoursInput.value || 0).padStart(2, '0')}:${String(minutesInput.value || 0).padStart(2, '0')}:${String(secondsInput.value || 0).padStart(2, '0')}`;
+      currentTimer.textContent = timerDisplay;
+    }
+
+    function setTimerToZero() {
+      hoursInput.value = 0;
+      minutesInput.value = 0;
+      secondsInput.value = 0;
+      updateTimerPreview();
+    }
+
+    function updateCurrentStatus() {
+      currentStatus.textContent = statusInput.value === 'available' ? 'Available' : 'Unavailable';
+      if (statusInput.value === 'available') {
+        setTimerToZero();
+      }
+    }
+
+    // Form submission
+    const adminForm = document.getElementById('adminForm');
+    const successMessage = document.getElementById('successMessage');
+    const resetBtn = document.getElementById('resetBtn');
+    const hoursInput = document.getElementById('hours');
+    const minutesInput = document.getElementById('minutes');
+    const secondsInput = document.getElementById('seconds');
+    const currentTimer = document.getElementById('currentTimer');
+    const lastUpdated = document.getElementById('lastUpdated');
+    const resetProductsBtn = document.getElementById('resetProductsBtn');
+    const announcementInput = document.getElementById('announcementInput');
+
+    statusInput.addEventListener('change', updateCurrentStatus);
+
+    // Load saved values from localStorage
+    function loadSavedValues() {
+      const settings = cloudAdminData?.storeSettings || getLocalJson('storeSettings', null);
+      if (settings) {
+        const isAvailable = settings.status === 'available';
+        statusInput.value = settings.status;
+        hoursInput.value = isAvailable ? 0 : settings.hours;
+        minutesInput.value = isAvailable ? 0 : settings.minutes;
+        secondsInput.value = isAvailable ? 0 : settings.seconds;
+
+        // Update display
+        currentStatus.textContent = settings.status === 'available' ? 'Available' : 'Unavailable';
+        const timerDisplay = isAvailable ? '00:00:00' : `${String(settings.hours).padStart(2, '0')}:${String(settings.minutes).padStart(2, '0')}:${String(settings.seconds).padStart(2, '0')}`;
+        currentTimer.textContent = timerDisplay;
+
+        if (settings.lastUpdated) {
+          lastUpdated.textContent = new Date(settings.lastUpdated).toLocaleString();
+        }
+      }
+
+      announcementInput.value = cloudAdminData?.announcementText ||
+        localStorage.getItem('announcementText') ||
+        defaultAnnouncement;
+      renderProductEditors();
+    }
+
+    adminForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const status = statusInput.value;
+      const hours = status === 'available' ? 0 : (parseInt(hoursInput.value) || 0);
+      const minutes = status === 'available' ? 0 : (parseInt(minutesInput.value) || 0);
+      const seconds = status === 'available' ? 0 : (parseInt(secondsInput.value) || 0);
+
+      // Validate inputs
+      if (hours > 23 || minutes > 59 || seconds > 59) {
+        alert('Please enter valid time values!');
+        return;
+      }
+
+      // Save to localStorage
+      const settings = {
+        status: status,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+        lastUpdated: new Date().toISOString()
+      };
+      const announcementText = announcementInput.value.trim() || defaultAnnouncement;
+      const featuredProducts = await collectProductValues();
+
+      try {
+        localStorage.setItem('storeSettings', JSON.stringify(settings));
+        localStorage.setItem('announcementText', announcementText);
+        localStorage.setItem('featuredProducts', JSON.stringify(featuredProducts));
+      } catch (error) {
+        alert('The product images are too large for browser storage. Please upload smaller pictures and try again.');
+        return;
+      }
+
+      if (window.storeCloud?.enabled) {
+        try {
+          await window.storeCloud.save({
+            storeSettings: settings,
+            announcementText,
+            featuredProducts
+          });
+        } catch (error) {
+          alert('Saved in this browser, but cloud sync failed. Check Firebase config and Firestore rules.');
+          console.warn('Cloud save failed:', error);
+          return;
+        }
+      }
+
+      // Update display
+      if (status === 'available') {
+        setTimerToZero();
+      }
+      const timerDisplay = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      currentTimer.textContent = timerDisplay;
+      lastUpdated.textContent = new Date().toLocaleString();
+
+      // Show success message
+      successMessage.classList.add('show');
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+      }, 3000);
+
+      // Broadcast change to other windows/tabs
+      window.localStorage.setItem('settingsChanged', Date.now().toString());
+      window.localStorage.setItem('announcementChanged', Date.now().toString());
+      window.localStorage.setItem('productsChanged', Date.now().toString());
+    });
+
+    resetBtn.addEventListener('click', () => {
+      hoursInput.value = 23;
+      minutesInput.value = 45;
+      secondsInput.value = 30;
+      statusInput.value = 'available';
+      announcementInput.value = defaultAnnouncement;
+      updateCurrentStatus();
+    });
+
+    resetProductsBtn.addEventListener('click', () => {
+      cloudAdminData = {
+        ...(cloudAdminData || {}),
+        featuredProducts: null
+      };
+      localStorage.removeItem('featuredProducts');
+      renderProductEditors();
+      window.localStorage.setItem('productsChanged', Date.now().toString());
+    });
+
+    // Load saved values on page load
+    loadSavedValues();
+
+    if (window.storeCloud?.enabled) {
+      window.storeCloud.load().then((data) => {
+        if (!data) return;
+        cloudAdminData = data;
+        loadSavedValues();
+      }).catch((error) => {
+        console.warn('Unable to load cloud admin settings:', error);
+      });
+
+      window.storeCloud.subscribe((data) => {
+        cloudAdminData = data;
+        loadSavedValues();
+      });
+    }
+
+    // Listen for changes from other tabs/windows
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'storeSettings' || e.key === 'settingsChanged') {
+        loadSavedValues();
+      }
+      if (e.key === 'featuredProducts' || e.key === 'productsChanged') {
+        renderProductEditors();
+      }
+      if (e.key === 'announcementText' || e.key === 'announcementChanged') {
+        announcementInput.value = localStorage.getItem('announcementText') || defaultAnnouncement;
+      }
+    });
+  </script>
+</body>
+</html>
